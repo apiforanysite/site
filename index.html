@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>API for Any Site</title>
+<meta name="description" content="An API for the web, even for the sites that never built one. Give your AI agent direct tools for the sites you use, running in your own browser. Free and open source.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://apiforanysite.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="API for Any Site">
+<meta property="og:description" content="An API for the web, even for the sites that never built one. Direct tools for your AI agent, running in your own browser.">
+<meta property="og:url" content="https://apiforanysite.com/">
+<meta property="og:image" content="https://apiforanysite.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0f1115">
+<style>
+  @font-face { font-family:'JetBrains Mono'; font-weight:400; font-display:swap; src:url('/fonts/jetbrains-mono-400.woff2') format('woff2'); }
+  @font-face { font-family:'JetBrains Mono'; font-weight:500; font-display:swap; src:url('/fonts/jetbrains-mono-500.woff2') format('woff2'); }
+  @font-face { font-family:'JetBrains Mono'; font-weight:700; font-display:swap; src:url('/fonts/jetbrains-mono-700.woff2') format('woff2'); }
+  :root {
+    --bg:#0f1115; --panel:#0b0d11; --line:#1b2027; --line2:#232a33;
+    --ink:#e6edf3; --body:#c9d1d9; --dim:#8b949e; --faint:#586069; --arrow:#39414c;
+    --green:#5ee0a0; --string:#e8c98a;
+  }
+  * { box-sizing:border-box; }
+  html { background:var(--bg); }
+  body { margin:0; background:var(--bg); color:var(--body); font:400 15px/1.65 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:960px; margin:0 auto; padding:0 28px 72px; }
+  a { color:var(--dim); }
+  a:hover { color:var(--green); }
+
+  header { display:flex; justify-content:space-between; align-items:center; padding:26px 0; border-bottom:1px solid var(--line2); }
+  .brand { font-weight:700; font-size:17px; color:var(--ink); letter-spacing:-.02em; text-decoration:none; }
+  .brand .dot { color:var(--green); }
+  header nav a { text-decoration:none; font-size:13.5px; }
+
+  h1 { font-size:44px; line-height:1.18; font-weight:700; color:var(--ink); letter-spacing:-.02em; margin:96px 0 22px; max-width:820px; text-wrap:balance; }
+  h1 .g { color:var(--green); }
+  .lede { font-size:16.5px; color:var(--dim); max-width:700px; margin:0 0 36px; text-wrap:pretty; }
+  .ctas { display:flex; align-items:center; gap:18px; flex-wrap:wrap; margin:0; }
+  .cta { display:inline-block; background:var(--green); color:#0b1a12; font-weight:700; padding:14px 22px; border-radius:6px; text-decoration:none; font-size:15px; }
+  .cta:hover { color:#0b1a12; opacity:.92; }
+  .quiet { color:var(--faint); font-size:13px; }
+  .quiet a { text-decoration:underline; text-underline-offset:3px; }
+
+  .term { margin:88px 0 0; border:1px solid var(--line2); border-radius:8px; background:var(--panel); overflow:hidden; }
+  .term .bar { display:flex; gap:6px; padding:10px 14px; border-bottom:1px solid var(--line); }
+  .term .bar i { width:10px; height:10px; border-radius:50%; background:#2a323c; display:block; }
+  .term .cols { display:grid; grid-template-columns:1fr 1fr; }
+  .term .col { padding:22px 24px 26px; font-size:13.5px; line-height:1.7; min-width:0; overflow-x:auto; }
+  .term .col + .col { border-left:1px solid var(--line); }
+  .term .hd { color:var(--faint); margin-bottom:12px; }
+  .term .hd b { color:var(--ink); font-weight:500; }
+  .step { color:#6b7684; white-space:nowrap; }
+  .step::before { content:"›  "; color:var(--arrow); }
+  .step.more { color:var(--arrow); }
+  .call { color:var(--ink); }
+  .call .fn { color:var(--green); }
+  .out { color:var(--dim); white-space:pre; margin:0; font:inherit; }
+  .out .k { color:var(--body); }
+  .out .s { color:var(--string); }
+
+  h2 { font-size:12px; font-weight:500; color:#6b7684; text-transform:uppercase; letter-spacing:.14em; margin:96px 0 18px; }
+  .rules { list-style:none; margin:0; padding:0; border-top:1px solid var(--line2); }
+  .rules li { display:grid; grid-template-columns:300px 1fr; gap:24px; padding:16px 0; border-bottom:1px solid var(--line); }
+  .rules b { color:var(--ink); font-weight:500; }
+  .rules span { color:var(--dim); font-size:14px; }
+
+  footer { margin-top:96px; padding-top:20px; border-top:1px solid var(--line2); color:var(--faint); font-size:13px; display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  footer a { text-decoration:none; }
+
+  @media (max-width:720px) {
+    .wrap { padding:0 20px 56px; }
+    h1 { font-size:30px; margin-top:56px; }
+    .lede { font-size:15px; }
+    .term { margin-top:56px; }
+    .term .cols { grid-template-columns:1fr; }
+    .term .col + .col { border-left:0; border-top:1px solid var(--line); }
+    h2 { margin-top:64px; }
+    .rules li { grid-template-columns:1fr; gap:4px; }
+    footer { margin-top:64px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="brand" href="/">api<span class="dot">·</span>for<span class="dot">·</span>any<span class="dot">·</span>site</a>
+    <nav><a href="https://github.com/apiforanysite">github ↗</a></nav>
+  </header>
+
+  <main>
+    <h1>An <span class="g">API for the web</span>, even for the sites that never built one.</h1>
+    <p class="lede">Your AI agent has no built-in tools for most websites, so it improvises: it reads the page, screenshots it, clicks around. That is slow, it breaks when the page changes, and it costs a lot of tokens. API for Any Site gives your agent direct tools instead, running in your own logged-in browser.</p>
+    <p class="ctas"><a class="cta" href="https://chromewebstore.google.com/detail/mlknbfgdblbbdoomplebifjopkoflcdg">Add to Chrome</a><span class="quiet">Free and open source · <a href="https://github.com/apiforanysite">GitHub</a></span></p>
+
+    <div class="term" aria-label="Without a kit versus with a kit">
+      <div class="bar"><i></i><i></i><i></i></div>
+      <div class="cols">
+        <div class="col">
+          <div class="hd"><b>Without a kit</b> · the agent drives the page</div>
+          <div class="step">open linkedin.com/mynetwork</div>
+          <div class="step">screenshot, read it</div>
+          <div class="step">scroll</div>
+          <div class="step">screenshot, read it</div>
+          <div class="step">click "Show all"</div>
+          <div class="step">screenshot, read it</div>
+          <div class="step">the layout changed, retry</div>
+          <div class="step more">…</div>
+        </div>
+        <div class="col">
+          <div class="hd"><b>With the LinkedIn kit</b> · one call</div>
+          <div class="call"><span class="fn">list_invitations</span>()</div>
+<pre class="out"><span class="k">[</span>
+  { <span class="k">name</span>: <span class="s">"Ada Quill"</span>,
+    <span class="k">headline</span>: <span class="s">"Growth at Larkspur"</span>,
+    <span class="k">note</span>: <span class="s">"Loved your post on…"</span>,
+    <span class="k">mutual</span>: 12 },
+  { <span class="k">name</span>: <span class="s">"Tomas Reyes"</span>, … }
+<span class="k">]</span></pre>
+        </div>
+      </div>
+    </div>
+
+    <h2>What a kit can and cannot do</h2>
+    <ul class="rules">
+      <li><b>Runs only on the site it declares</b><span>You grant that site when you install the kit. It cannot run anywhere else.</span></li>
+      <li><b>Can only talk to that site</b><span>So it cannot send your data anywhere else. The only exit is the result handed to your agent.</span></li>
+      <li><b>Changes need a switch</b><span>Tools that accept, ignore or remove are marked, and need a switch you turn on per kit. Nothing sends messages on your behalf.</span></li>
+      <li><b>Every call is logged</b><span>Capped by daily limits you set. When a cap is hit, the tool stops.</span></li>
+      <li><b>No server of ours</b><span>The agent and the extension meet on your machine. Kits come from the reviewed catalog or your own computer, never from a link someone sends you.</span></li>
+    </ul>
+  </main>
+
+  <footer><span>Free and open source</span><a href="https://github.com/apiforanysite">github.com/apiforanysite</a></footer>
+</div>
+</body>
+</html>

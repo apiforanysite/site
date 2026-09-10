@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>apiforanysite.com, directions r1</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Archivo:wdth,wght@75..125,400..900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing:border-box; }
+  body { margin:0; background:#7a7a7a; }
+  .tag { font:500 13px/1 ui-monospace,monospace; color:#fff; background:#333; padding:12px 24px; letter-spacing:.04em; }
+  .tag b { font-size:18px; margin-right:14px; }
+  .tag i { opacity:.7; font-style:normal; }
+  .page { min-height:100vh; }
+
+  /* ================= A · Terminal ================= */
+  .a { background:#0f1115; color:#c9d1d9; font:400 15px/1.65 'JetBrains Mono', ui-monospace, monospace; }
+  .a .wrap { max-width:960px; margin:0 auto; padding:0 28px 72px; }
+  .a header { display:flex; justify-content:space-between; align-items:center; padding:26px 0; border-bottom:1px solid #232a33; }
+  .a .brand { font-weight:700; font-size:17px; color:#e6edf3; letter-spacing:-.02em; }
+  .a .brand .dot { color:#5ee0a0; }
+  .a header a { color:#8b949e; text-decoration:none; font-size:13.5px; }
+  .a header a:hover { color:#5ee0a0; }
+  .a h1 { font-size:44px; line-height:1.18; font-weight:700; color:#e6edf3; letter-spacing:-.02em; margin:96px 0 22px; max-width:820px; text-wrap:balance; }
+  .a h1 .g { color:#5ee0a0; }
+  .a .lede { font-size:16.5px; color:#8b949e; max-width:700px; margin:0 0 36px; text-wrap:pretty; }
+  .a .cta { display:inline-block; background:#5ee0a0; color:#0b1a12; font-weight:700; padding:14px 22px; border-radius:6px; text-decoration:none; font-size:15px; }
+  .a .cta:hover { opacity:.92; }
+  .a .quiet { color:#586069; font-size:13px; margin-left:18px; }
+  .a .quiet a { color:#8b949e; text-decoration:underline; text-underline-offset:3px; }
+  .a .term { margin:88px 0 0; border:1px solid #232a33; border-radius:8px; background:#0b0d11; overflow:hidden; }
+  .a .term .bar { display:flex; gap:6px; padding:10px 14px; border-bottom:1px solid #1b2027; }
+  .a .term .bar i { width:10px; height:10px; border-radius:50%; background:#2a323c; display:block; }
+  .a .term .cols { display:grid; grid-template-columns:1fr 1fr; }
+  .a .term .col { padding:22px 24px 26px; font-size:13.5px; line-height:1.7; }
+  .a .term .col + .col { border-left:1px solid #1b2027; }
+  .a .term .hd { color:#586069; margin-bottom:12px; }
+  .a .term .hd b { color:#e6edf3; font-weight:500; }
+  .a .step { color:#6b7684; }
+  .a .step::before { content:"›  "; color:#39414c; }
+  .a .step.more { color:#39414c; }
+  .a .call { color:#e6edf3; }
+  .a .call .fn { color:#5ee0a0; }
+  .a .out { color:#8b949e; white-space:pre; }
+  .a .out .k { color:#c9d1d9; }
+  .a .out .s { color:#e8c98a; }
+  .a h2 { font-size:12px; font-weight:500; color:#6b7684; text-transform:uppercase; letter-spacing:.14em; margin:96px 0 18px; }
+  .a .rules { list-style:none; margin:0; padding:0; border-top:1px solid #232a33; }
+  .a .rules li { display:grid; grid-template-columns:300px 1fr; gap:24px; padding:16px 0; border-bottom:1px solid #1b2027; }
+  .a .rules b { color:#e6edf3; font-weight:500; }
+  .a .rules span { color:#8b949e; font-size:14px; }
+  .a footer { margin-top:96px; padding-top:20px; border-top:1px solid #232a33; color:#586069; font-size:13px; display:flex; justify-content:space-between; }
+  .a footer a { color:#8b949e; text-decoration:none; }
+
+  /* ================= B · Manual ================= */
+  .b { background:#fbf7f0; color:#1d1a16; font:400 18px/1.6 'Newsreader', Charter, Georgia, serif; }
+  .b .wrap { max-width:760px; margin:0 auto; padding:0 28px 80px; }
+  .b header { display:flex; justify-content:space-between; align-items:baseline; padding:30px 0 14px; border-bottom:2px solid #1d1a16; }
+  .b .brand { font:500 15px 'JetBrains Mono', monospace; letter-spacing:-.02em; }
+  .b .brand .dot { color:#1f8a5b; }
+  .b header a { font:400 14px 'JetBrains Mono', monospace; color:#6b6459; text-decoration:none; }
+  .b h1 { font-size:54px; line-height:1.08; font-weight:400; letter-spacing:-.015em; margin:84px 0 26px; text-wrap:balance; }
+  .b h1 em { font-style:italic; font-weight:400; }
+  .b .lede { font-size:20px; color:#4a443c; margin:0 0 34px; max-width:640px; text-wrap:pretty; }
+  .b .cta { display:inline-block; background:#1d1a16; color:#fbf7f0; font:500 15px 'JetBrains Mono', monospace; padding:14px 22px; border-radius:4px; text-decoration:none; }
+  .b .quiet { font:400 14px 'JetBrains Mono', monospace; color:#6b6459; margin-left:16px; }
+  .b .quiet a { color:#1d1a16; }
+  .b .fig { margin:84px 0 0; border-top:1px solid #d9d0bf; border-bottom:1px solid #d9d0bf; padding:26px 0 22px; display:grid; grid-template-columns:1fr 1fr; gap:40px; }
+  .b .fig .cap { font-style:italic; color:#6b6459; font-size:16px; margin-bottom:12px; }
+  .b .fig .cap b { font-style:normal; font-weight:500; color:#1d1a16; }
+  .b .mono { font:400 13.5px/1.7 'JetBrains Mono', monospace; }
+  .b .step { color:#8a8275; }
+  .b .step::before { content:"›  "; color:#c2b8a5; }
+  .b .call .fn { color:#1f8a5b; }
+  .b .out { color:#4a443c; white-space:pre; }
+  .b .out .s { color:#1d1a16; }
+  .b h2 { font-size:15px; font-weight:400; font-style:italic; color:#6b6459; margin:84px 0 10px; }
+  .b .rules { list-style:none; margin:0; padding:0; border-top:2px solid #1d1a16; }
+  .b .rules li { padding:14px 0; border-bottom:1px solid #d9d0bf; display:grid; grid-template-columns:280px 1fr; gap:24px; }
+  .b .rules b { font-weight:500; }
+  .b .rules span { color:#4a443c; font-size:17px; }
+  .b footer { margin-top:84px; padding-top:14px; border-top:1px solid #d9d0bf; font:400 13px 'JetBrains Mono', monospace; color:#6b6459; display:flex; justify-content:space-between; }
+  .b footer a { color:#1d1a16; text-decoration:none; }
+
+  /* ================= C · Stark ================= */
+  .c { background:#fff; color:#000; font:400 17px/1.5 'Archivo', Helvetica, Arial, sans-serif; }
+  .c .wrap { max-width:1180px; margin:0 auto; padding:0 32px 80px; }
+  .c header { display:flex; justify-content:space-between; align-items:center; padding:28px 0; }
+  .c .brand { font-weight:700; font-size:16px; letter-spacing:-.02em; }
+  .c .brand .dot { color:#1f8a5b; }
+  .c header a { color:#000; text-decoration:underline; text-underline-offset:4px; font-size:15px; }
+  .c h1 { font-size:88px; line-height:.98; font-weight:800; letter-spacing:-.04em; margin:110px 0 34px; max-width:1100px; font-variation-settings:'wdth' 95; text-wrap:balance; }
+  .c .lede { font-size:22px; line-height:1.45; max-width:720px; margin:0 0 40px; color:#000; text-wrap:pretty; }
+  .c .cta { display:inline-block; background:#000; color:#fff; font-weight:600; padding:18px 28px; border-radius:999px; text-decoration:none; font-size:17px; }
+  .c .quiet { font-size:15px; color:#666; margin-left:18px; }
+  .c .quiet a { color:#000; }
+  .c .cmp { margin:140px 0 0; display:grid; grid-template-columns:1fr 1fr; gap:0; border-top:2px solid #000; }
+  .c .cmp > div { padding:28px 0 8px; }
+  .c .cmp > div + div { border-left:2px solid #000; padding-left:40px; }
+  .c .cmp h3 { margin:0 0 18px; font-size:15px; font-weight:600; letter-spacing:-.01em; }
+  .c .cmp h3 small { font-weight:400; color:#666; margin-left:10px; }
+  .c .mono { font:400 14px/1.75 'JetBrains Mono', monospace; }
+  .c .step { color:#999; }
+  .c .step::before { content:"›  "; color:#ccc; }
+  .c .call .fn { color:#1f8a5b; font-weight:500; }
+  .c .out { color:#444; white-space:pre; }
+  .c .out .s { color:#000; }
+  .c h2 { font-size:15px; font-weight:600; margin:140px 0 8px; letter-spacing:-.01em; }
+  .c .rules { list-style:none; margin:0; padding:0; border-top:2px solid #000; }
+  .c .rules li { padding:18px 0; border-bottom:1px solid #ddd; display:grid; grid-template-columns:1fr 1fr; gap:40px; font-size:22px; line-height:1.3; letter-spacing:-.01em; }
+  .c .rules b { font-weight:600; }
+  .c .rules span { color:#666; font-size:17px; line-height:1.45; align-self:center; }
+  .c footer { margin-top:140px; padding-top:16px; border-top:2px solid #000; font-size:14px; display:flex; justify-content:space-between; }
+  .c footer a { color:#000; }
+</style></head><body>
+
+<div class="tag"><b>A</b> Terminal <i>· the extension's own skin, carried to the site: the page IS a session</i></div>
+<div class="page a"><div class="wrap">
+  <header><span class="brand">api<span class="dot">·</span>for<span class="dot">·</span>any<span class="dot">·</span>site</span><a href="#">github ↗</a></header>
+  <h1>An <span class="g">API for the web</span>, even for the sites that never built one.</h1>
+  <p class="lede">Your AI agent has no built-in tools for most websites, so it improvises: it reads the page, screenshots it, clicks around. That is slow, it breaks when the page changes, and it costs a lot of tokens. API for Any Site gives your agent direct tools instead, running in your own logged-in browser.</p>
+  <p><a class="cta" href="#">Add to Chrome</a><span class="quiet">Free and open source · <a href="#">GitHub</a></span></p>
+
+  <div class="term">
+    <div class="bar"><i></i><i></i><i></i></div>
+    <div class="cols">
+      <div class="col">
+        <div class="hd"><b>Without a kit</b> · the agent drives the page</div>
+        <div class="step">open linkedin.com/mynetwork</div>
+        <div class="step">screenshot, read it</div>
+        <div class="step">scroll</div>
+        <div class="step">screenshot, read it</div>
+        <div class="step">click "Show all"</div>
+        <div class="step">screenshot, read it</div>
+        <div class="step">the layout changed, retry</div>
+        <div class="step more">…</div>
+      </div>
+      <div class="col">
+        <div class="hd"><b>With the LinkedIn kit</b> · one call</div>
+        <div class="call"><span class="fn">list_invitations</span>()</div>
+        <div class="out"><span class="k">[</span>
+  { <span class="k">name</span>: <span class="s">"Ada Quill"</span>,
+    <span class="k">headline</span>: <span class="s">"Growth at Larkspur"</span>,
+    <span class="k">note</span>: <span class="s">"Loved your post on…"</span>,
+    <span class="k">mutual</span>: 12 },
+  { <span class="k">name</span>: <span class="s">"Tomas Reyes"</span>, … }
+<span class="k">]</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h2>What a kit can and cannot do</h2>
+  <ul class="rules">
+    <li><b>Runs only on the site it declares</b><span>You grant that site when you install the kit. It cannot run anywhere else.</span></li>
+    <li><b>Can only talk to that site</b><span>So it cannot send your data anywhere else. The only exit is the result handed to your agent.</span></li>
+    <li><b>Changes need a switch</b><span>Tools that accept, ignore or remove are marked, and need a switch you turn on per kit. Nothing sends messages on your behalf.</span></li>
+    <li><b>Every call is logged</b><span>Capped by daily limits you set. When a cap is hit, the tool stops.</span></li>
+    <li><b>No server of ours</b><span>The agent and the extension meet on your machine. Kits come from the reviewed catalog or your own computer, never from a link someone sends you.</span></li>
+  </ul>
+
+  <footer><span>Free and open source</span><a href="#">github.com/apiforanysite</a></footer>
+</div></div>
+
+<div class="tag"><b>B</b> Manual <i>· paper and a book face: the page reads like a well-set man page, code stays mono</i></div>
+<div class="page b"><div class="wrap">
+  <header><span class="brand">api<span class="dot">·</span>for<span class="dot">·</span>any<span class="dot">·</span>site</span><a href="#">github ↗</a></header>
+  <h1>An API for the web, <em>even for the sites that never built one.</em></h1>
+  <p class="lede">Your AI agent has no built-in tools for most websites, so it improvises: it reads the page, screenshots it, clicks around. That is slow, it breaks when the page changes, and it costs a lot of tokens. API for Any Site gives your agent direct tools instead, running in your own logged-in browser.</p>
+  <p><a class="cta" href="#">Add to Chrome</a><span class="quiet">Free and open source · <a href="#">GitHub</a></span></p>
+
+  <div class="fig">
+    <div>
+      <div class="cap"><b>Without a kit,</b> the agent drives the page</div>
+      <div class="mono">
+        <div class="step">open linkedin.com/mynetwork</div>
+        <div class="step">screenshot, read it</div>
+        <div class="step">scroll</div>
+        <div class="step">screenshot, read it</div>
+        <div class="step">click "Show all"</div>
+        <div class="step">screenshot, read it</div>
+        <div class="step">the layout changed, retry</div>
+        <div class="step">…</div>
+      </div>
+    </div>
+    <div>
+      <div class="cap"><b>With the LinkedIn kit,</b> one call</div>
+      <div class="mono">
+        <div class="call"><span class="fn">list_invitations</span>()</div>
+        <div class="out">[
+  { name: <span class="s">"Ada Quill"</span>,
+    headline: <span class="s">"Growth at Larkspur"</span>,
+    note: <span class="s">"Loved your post on…"</span>,
+    mutual: 12 },
+  { name: <span class="s">"Tomas Reyes"</span>, … }
+]</div>
+      </div>
+    </div>
+  </div>
+
+  <h2>What a kit can and cannot do</h2>
+  <ul class="rules">
+    <li><b>Runs only on the site it declares</b><span>You grant that site when you install the kit. It cannot run anywhere else.</span></li>
+    <li><b>Can only talk to that site</b><span>So it cannot send your data anywhere else. The only exit is the result handed to your agent.</span></li>
+    <li><b>Changes need a switch</b><span>Tools that accept, ignore or remove are marked, and need a switch you turn on per kit. Nothing sends messages on your behalf.</span></li>
+    <li><b>Every call is logged</b><span>Capped by daily limits you set. When a cap is hit, the tool stops.</span></li>
+    <li><b>No server of ours</b><span>The agent and the extension meet on your machine. Kits come from the reviewed catalog or your own computer, never from a link someone sends you.</span></li>
+  </ul>
+
+  <footer><span>Free and open source</span><a href="#">github.com/apiforanysite</a></footer>
+</div></div>
+
+<div class="tag"><b>C</b> Stark <i>· white, one heavy grotesk, black rules; the headline is the design</i></div>
+<div class="page c"><div class="wrap">
+  <header><span class="brand">api<span class="dot">·</span>for<span class="dot">·</span>any<span class="dot">·</span>site</span><a href="#">GitHub</a></header>
+  <h1>An API for the web, even for the sites that never built one.</h1>
+  <p class="lede">Your AI agent has no built-in tools for most websites, so it improvises: it reads the page, screenshots it, clicks around. That is slow, it breaks when the page changes, and it costs a lot of tokens. API for Any Site gives your agent direct tools instead, running in your own logged-in browser.</p>
+  <p><a class="cta" href="#">Add to Chrome</a><span class="quiet">Free and open source · <a href="#">GitHub</a></span></p>
+
+  <div class="cmp">
+    <div>
+      <h3>Without a kit <small>the agent drives the page</small></h3>
+      <div class="mono">
+        <div class="step">open linkedin.com/mynetwork</div>
+        <div class="step">screenshot, read it</div>
+        <div class="step">scroll</div>
+        <div class="step">screenshot, read it</div>
+        <div class="step">click "Show all"</div>
+        <div class="step">screenshot, read it</div>
+        <div class="step">the layout changed, retry</div>
+        <div class="step">…</div>
+      </div>
+    </div>
+    <div>
+      <h3>With the LinkedIn kit <small>one call</small></h3>
+      <div class="mono">
+        <div class="call"><span class="fn">list_invitations</span>()</div>
+        <div class="out">[
+  { name: <span class="s">"Ada Quill"</span>,
+    headline: <span class="s">"Growth at Larkspur"</span>,
+    note: <span class="s">"Loved your post on…"</span>,
+    mutual: 12 },
+  { name: <span class="s">"Tomas Reyes"</span>, … }
+]</div>
+      </div>
+    </div>
+  </div>
+
+  <h2>What a kit can and cannot do</h2>
+  <ul class="rules">
+    <li><b>Runs only on the site it declares.</b><span>You grant that site when you install the kit. It cannot run anywhere else.</span></li>
+    <li><b>Can only talk to that site.</b><span>So it cannot send your data anywhere else. The only exit is the result handed to your agent.</span></li>
+    <li><b>Changes need a switch.</b><span>Tools that accept, ignore or remove are marked, and need a switch you turn on per kit. Nothing sends messages on your behalf.</span></li>
+    <li><b>Every call is logged.</b><span>Capped by daily limits you set. When a cap is hit, the tool stops.</span></li>
+    <li><b>No server of ours.</b><span>The agent and the extension meet on your machine. Kits come from the reviewed catalog or your own computer, never from a link someone sends you.</span></li>
+  </ul>
+
+  <footer><span>Free and open source</span><a href="#">github.com/apiforanysite</a></footer>
+</div></div>
+
+</body></html>
