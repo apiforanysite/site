@@ -32,3 +32,8 @@ The public site for API for Any Site (the Chrome extension + native host, repo `
 ## r4, 2026-09-10: hero rhythm
 
 - **Tighter above and below the hero** (Sam, two steps): header to headline 96px → 40px, CTA block to the terminal 88px → 56px (phone 28px / 40px). GitHub links open in a new tab (r3 follow-up, PR #2).
+
+## r5, 2026-09-10: privacy page and the fence claim
+
+- **Privacy page at `/privacy/`** (a folder with `index.html`, since Caddy's file_server serves no extensionless paths): what we collect (nothing), what stays on the machine (kits, settings, audit log, what a kit reads), what a kit can reach, the agent and the sites' own terms, the website's request logs, contact. Same header, footer and styles as the home page; a Privacy link in the footer. Written for the Chrome Web Store form, which requires a working privacy policy URL. Contact address: sam@get2ofme.com, the store publisher account.
+- **"Safe by design" no longer claims a runtime fence for every kit.** The extension session verified on 2026-09-10 that catalog kits (bundled, run via chrome.scripting) can still make outbound requests, while personal kits (User Scripts world, per-kit connect-src) cannot. Sam's decision: keep the split and say it plainly. The dek now reads "Catalog kits are reviewed code shipped with the extension. A kit you write yourself runs under a browser fence", and the second row is "Your own kits are fenced".
