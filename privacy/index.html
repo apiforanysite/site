@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Privacy, API for Any Site</title>
+<meta name="description" content="What API for Any Site stores on your machine, what it never collects, and what a kit can reach.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://apiforanysite.com/privacy/">
+<meta name="theme-color" content="#0f1115">
+<style>
+  @font-face { font-family:'JetBrains Mono'; font-weight:400; font-display:swap; src:url('/fonts/jetbrains-mono-400.woff2') format('woff2'); }
+  @font-face { font-family:'JetBrains Mono'; font-weight:500; font-display:swap; src:url('/fonts/jetbrains-mono-500.woff2') format('woff2'); }
+  @font-face { font-family:'JetBrains Mono'; font-weight:700; font-display:swap; src:url('/fonts/jetbrains-mono-700.woff2') format('woff2'); }
+  :root {
+    --bg:#0f1115; --panel:#0b0d11; --line:#1b2027; --line2:#232a33;
+    --ink:#e6edf3; --body:#c9d1d9; --dim:#8b949e; --faint:#586069; --arrow:#39414c;
+    --green:#5ee0a0; --string:#e8c98a;
+  }
+  * { box-sizing:border-box; }
+  html { background:var(--bg); }
+  body { margin:0; background:var(--bg); color:var(--body); font:400 15px/1.65 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:960px; margin:0 auto; padding:0 28px 72px; }
+  a { color:var(--dim); }
+  a:hover { color:var(--green); }
+
+  header { display:flex; justify-content:space-between; align-items:center; padding:26px 0; }
+  .brand { font-weight:700; font-size:17px; color:var(--ink); letter-spacing:-.02em; text-decoration:none; display:inline-flex; align-items:center; gap:12px; }
+  .brand .mark { flex:none; display:block; }
+  .brand .dot { color:var(--green); }
+  header nav a { text-decoration:none; font-size:13.5px; display:inline-flex; align-items:center; gap:7px; }
+  .gh { vertical-align:-3px; margin-right:6px; flex:none; }
+  header nav .gh, footer .gh { margin-right:0; }
+  footer a { display:inline-flex; align-items:center; gap:7px; }
+
+  h1 { font-size:36px; line-height:1.2; font-weight:700; color:var(--ink); letter-spacing:-.02em; margin:40px 0 22px; }
+  h1 .nb { white-space:nowrap; }
+  h1 .g { color:var(--green); }
+  h1 .typed[hidden] { display:none; }
+  .who { display:block; }
+  .slot { white-space:pre; }
+  .slot .lg { display:none; width:.78em; height:.78em; vertical-align:-.06em; margin-right:.45ch; }
+  .slot .lg.on { display:inline-block; }
+  .slot .cur { color:var(--green); font-weight:400; animation:blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity:0; } }
+  .lede { font-size:16.5px; color:var(--dim); margin:0 0 36px; text-wrap:pretty; }
+  .ctas { display:inline-flex; flex-direction:column; align-items:stretch; gap:12px; margin:0; }
+  .cta { display:block; text-align:center; background:var(--green); color:#0b1a12; font-weight:700; padding:14px 22px; border-radius:6px; text-decoration:none; font-size:15px; }
+  .cta:hover { color:#0b1a12; opacity:.92; }
+  .quiet { color:var(--faint); font-size:13px; text-align:center; white-space:nowrap; }
+  .quiet a { text-decoration:underline; text-underline-offset:3px; display:inline-flex; align-items:center; gap:5px; }
+  .quiet .gh { margin-right:0; }
+
+  .term { margin:56px 0 0; border:1px solid var(--line2); border-radius:8px; background:var(--panel); overflow:hidden; }
+  .term .bar { display:flex; gap:6px; padding:10px 14px; border-bottom:1px solid var(--line); }
+  .term .bar i { width:10px; height:10px; border-radius:50%; background:#2a323c; display:block; }
+  .term .cols { display:grid; grid-template-columns:1fr 1fr; }
+  .term .col { padding:22px 24px 26px; font-size:13.5px; line-height:1.7; min-width:0; overflow-x:auto; display:flex; flex-direction:column; }
+  .steps { min-height:calc(12 * 1.7em); }
+  .steps, .out { margin-bottom:14px; }
+  .term .col + .col { border-left:1px solid var(--line); }
+  .term .hd { color:var(--faint); margin-bottom:12px; }
+  .term .hd b { color:var(--ink); font-weight:500; }
+  .step { color:#6b7684; white-space:nowrap; }
+  .step::before { content:"›  "; color:var(--arrow); }
+  .step.more { color:var(--arrow); }
+  .call { color:var(--ink); }
+  .call .fn { color:var(--green); }
+  .out { color:var(--dim); white-space:pre; margin:0; font:inherit; }
+  .out .k { color:var(--body); }
+  .out .s { color:var(--string); }
+
+  .tot { margin-top:auto; padding-top:10px; border-top:1px solid var(--line); color:var(--faint); font-size:13px; }
+  .tot.done { color:var(--dim); }
+  .spin { color:var(--faint); }
+  .steps .step.hide { visibility:hidden; }
+  .steps .step.next { visibility:visible; }
+  .steps .step.next::before { content:""; }
+  .steps .step.next .tx { visibility:hidden; }
+  .sp { display:none; color:var(--green); }
+  .step.next .sp { display:inline-block; width:3ch; }
+  .call .spin { margin-left:.6ch; }
+  .call .spin:not([hidden]) { display:inline; }
+  .tot .t { color:var(--green); }
+  .out.pending { visibility:hidden; }
+  .sec { margin-top:96px; }
+  h2 { font-size:22px; font-weight:700; color:var(--ink); letter-spacing:-.02em; margin:0 0 8px; }
+  .dek { color:var(--dim); margin:0 0 22px; max-width:720px; text-wrap:pretty; }
+  .cases { list-style:none; margin:0; padding:0; border-top:1px solid var(--line2); }
+  .cases li { padding:18px 0; border-bottom:1px solid var(--line); }
+  .ask { margin:0 0 8px; color:var(--ink); font-size:15.5px; }
+  .calls { margin:0; font-size:13px; color:var(--dim); display:flex; flex-wrap:wrap; gap:8px 12px; align-items:center; }
+  .calls code { font:inherit; color:var(--green); }
+  .kit { color:var(--faint); border:1px solid var(--line2); border-radius:4px; padding:1px 7px; font-size:12px; }
+  .term.small { margin-top:0; }
+  .term.small .col { display:block; }
+  .you { color:var(--ink); margin-bottom:10px; }
+  .step b { color:var(--body); font-weight:400; }
+  .term.small .call { margin-top:10px; }
+  .term.small .dim { color:var(--dim); }
+  .rules { list-style:none; margin:0; padding:0; border-top:1px solid var(--line2); }
+  .rules li { display:grid; grid-template-columns:300px 1fr; gap:24px; padding:16px 0; border-bottom:1px solid var(--line); }
+  .rules b { color:var(--ink); font-weight:500; }
+  .rules span { color:var(--dim); font-size:14px; }
+
+  footer { margin-top:96px; padding-top:20px; border-top:1px solid var(--line2); color:var(--faint); font-size:13px; display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  footer a { text-decoration:none; }
+
+  @media (max-width:720px) {
+    .wrap { padding:0 20px 56px; }
+    h1 { font-size:28px; margin-top:28px; text-wrap:balance; }
+    h1 .nb { white-space:normal; }
+    .lede { font-size:15px; }
+    .term { margin-top:40px; }
+    .term .cols { grid-template-columns:1fr; }
+    .term .col + .col { border-left:0; border-top:1px solid var(--line); }
+    .sec { margin-top:64px; }
+    .rules li { grid-template-columns:1fr; gap:4px; }
+    footer { margin-top:64px; }
+  }
+
+  .doc h1 { font-size:30px; font-weight:700; color:var(--ink); letter-spacing:-.02em; margin:24px 0 8px; }
+  .doc h2 { margin-top:40px; }
+  .doc p, .doc .dek { max-width:none; }
+  .doc .date { color:var(--faint); font-size:13px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="brand" href="/"><svg class="mark" viewBox="22 34 84 60" width="36" height="26" aria-hidden="true"><g fill="none" stroke="#e6edf3" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"><path d="M44 40 C 35 40 37 51 37 57 C 37 61 35 64 27 64 C 35 64 37 67 37 71 C 37 77 35 88 44 88"/><path d="M84 40 C 93 40 91 51 91 57 C 91 61 93 64 101 64 C 93 64 91 67 91 71 C 91 77 93 88 84 88"/></g><circle cx="50" cy="64" r="6.5" fill="#e6edf3"/><circle cx="64" cy="64" r="8.5" fill="#5ee0a0"/><circle cx="78" cy="64" r="6.5" fill="#e6edf3"/></svg><span>api<span class="dot">·</span>for<span class="dot">·</span>any<span class="dot">·</span>site</span></a>
+    <nav><a href="https://github.com/apiforanysite/apiforanysite" target="_blank" rel="noopener"><svg class="gh" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>GitHub</a></nav>
+  </header>
+  <main class="doc">
+    <h1>Privacy</h1>
+    <p class="dek">API for Any Site is a Chrome extension and a small local program. Nothing it handles is sent to us. This page says exactly what stays on your machine and who can see it.</p>
+
+    <h2>What we collect</h2>
+    <p>Nothing. The extension has no account, no analytics and no server of ours. We cannot see which kits you install, what your agent asks, or what a kit reads on a site.</p>
+
+    <h2>What stays on your machine</h2>
+    <ul class="rules">
+      <li><b>Installed kits and settings</b><span>Which kits you installed, their daily limits and the switch for tools that change things. Stored in Chrome's local extension storage.</span></li>
+      <li><b>The audit log</b><span>One record per call: kit, tool, arguments, time, outcome. Stored in the same local storage, shown on the extension's options page. Removing the extension deletes it.</span></li>
+      <li><b>What a kit reads</b><span>A kit reads a site inside your own logged-in tab and hands the result to your agent over a local connection on your computer. The extension does not keep that content, beyond the call record above.</span></li>
+    </ul>
+
+    <h2>What a kit can reach</h2>
+    <p>A kit runs only on the site you granted when you installed it. Catalog kits are open source, reviewed, and shipped inside the extension package, so what runs is what the Chrome Web Store reviewed. A kit you write yourself runs in an isolated world that can only reach its own site. Kits are never installed from a link someone sends you.</p>
+
+    <h2>Your agent</h2>
+    <p>The local program (the native messaging host) exposes your installed kits' tools to an AI agent running on the same computer, such as Claude Code. What that agent does with a result is governed by the agent's own privacy terms, not ours. The sites a kit reads have their own terms too; a kit acts as you, on your session, at human pace.</p>
+
+    <h2>This website</h2>
+    <p>Static pages, no cookies, no analytics. Our host keeps standard server request logs (IP address, page, time) for a short period, as any web server does.</p>
+
+    <h2>Changes and contact</h2>
+    <p>Changes to this page are dated here. Questions: open an issue at <a href="https://github.com/apiforanysite/apiforanysite/issues" target="_blank" rel="noopener">github.com/apiforanysite/apiforanysite</a> or write to <a href="mailto:sam@get2ofme.com">sam@get2ofme.com</a>.</p>
+    <p class="date">Last updated 2026-09-10.</p>
+  </main>
+
+  <footer><span>Free and open source</span><a href="/privacy/">Privacy</a><a href="https://github.com/apiforanysite/apiforanysite" target="_blank" rel="noopener"><svg class="gh" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>github.com/apiforanysite/apiforanysite</a></footer>
+</div>
+</body>
+</html>
