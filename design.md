@@ -28,3 +28,7 @@ The public site for API for Any Site (the Chrome extension + native host, repo `
 - **Header rule removed** (Sam). **Footer** links carry the octicon.
 - **Below the terminal, three sections** (Sam's structure): "Examples of automations you can now run" (three asks in the user's words, each with the kit chip and the real tool names from the manifests), "Ask your agent to build an API for any site" (a small terminal: the agent writes a Hacker News kit, manifest + one tool file, installs it from this machine; Hacker News is illustrative), "Safe by design" (the listing's rules as hairline rows, plus Open source). Replaced the bare "What a kit can and cannot do" list.
 - Extension repo moved to `~/Code/Personal/apiforanysite` (GitHub apiforanysite/apiforanysite); the site repo is GitHub apiforanysite/site.
+
+## r4, 2026-09-10: hero rhythm
+
+- **Tighter above and below the hero** (Sam, two steps): header to headline 96px → 40px, CTA block to the terminal 88px → 56px (phone 28px / 40px). GitHub links open in a new tab (r3 follow-up, PR #2).
